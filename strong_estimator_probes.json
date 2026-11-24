@@ -1,0 +1,10 @@
+{
+ "n_windows": 1664,
+ "mae": {
+  "kisr_comb_submitted": 34.57614118205844,
+  "hires_viterbi": 37.666735204268235,
+  "rls_anc": 40.0509179365119,
+  "strict_harmonic_gate": 37.78025460601751
+ },
+ "note": "full-cohort probe comparison; none of the three stronger estimator variants improves on the submitted probe, i.e. the residual exercise error is not an estimator-resolution or tracking artifact"
+}

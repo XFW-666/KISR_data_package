@@ -1,0 +1,230 @@
+{
+ "protocol": {
+  "win_s": 8.0,
+  "step_s": 4.0,
+  "ref_exclusion_bpm": [
+   40.0,
+   180.0
+  ],
+  "estimator": "ppglib.hr_harmonic comb, prev=None for all arms",
+  "activities": "high_resistance_bike + run (hard)",
+  "gate": {
+   "jerk_z_thr": 2.5,
+   "kurt_thr": 2.0,
+   "flat_thr": 0.3,
+   "soft_keep": 0.3,
+   "bp_band_hz": [
+    0.7,
+    3.0
+   ],
+   "rule": "flag = jerk_z>2.5 AND (kurt>2.0 OR flat>0.30); jerk z is robust (median/MAD) within each 8-s window"
+  }
+ },
+ "cohort": {
+  "n_subjects": 7,
+  "n_records": 8,
+  "n_windows": 684,
+  "subjects": [
+   "s1",
+   "s2",
+   "s3",
+   "s4",
+   "s5",
+   "s6",
+   "s8"
+  ],
+  "records": [
+   "s1_high_resistance_bike",
+   "s2_high_resistance_bike",
+   "s3_high_resistance_bike",
+   "s3_run",
+   "s4_run",
+   "s5_run",
+   "s6_run",
+   "s8_run"
+  ]
+ },
+ "flagged_frame_fraction": {
+  "gate_soft": {
+   "mean": 0.02561000201653559,
+   "p90": 0.10344827586206896
+  },
+  "gate_bp": {
+   "mean": 0.02561000201653559,
+   "p90": 0.10344827586206896
+  }
+ },
+ "overall": {
+  "kisr": {
+   "mae": 42.74364546783626,
+   "ci95_subject_cluster": [
+    32.21636192429042,
+    57.3018330479452
+   ],
+   "n_windows": 684,
+   "n_subjects": 7
+  },
+  "gate_soft": {
+   "mae": 42.82429707602339,
+   "ci95_subject_cluster": [
+    32.3953409500194,
+    57.341415753424656
+   ],
+   "n_windows": 684,
+   "n_subjects": 7,
+   "vs_kisr": {
+    "delta_mae": 0.08065160818713935,
+    "ci95_subject_cluster": [
+     -0.0013753020171531458,
+     0.1946090551181074
+    ],
+    "p_subject_wilcoxon": 0.46875,
+    "n_subjects": 7
+   }
+  },
+  "gate_bp": {
+   "mae": 42.4102653508772,
+   "ci95_subject_cluster": [
+    31.999959137055836,
+    56.98219160958906
+   ],
+   "n_windows": 684,
+   "n_subjects": 7,
+   "vs_kisr": {
+    "delta_mae": -0.3333801169590558,
+    "ci95_subject_cluster": [
+     -0.5928915829045053,
+     -0.09238527341821798
+    ],
+    "p_subject_wilcoxon": 0.078125,
+    "n_subjects": 7
+   }
+  }
+ },
+ "by_activity": {
+  "bike_high": {
+   "kisr": {
+    "mae": 36.503126182965296,
+    "ci95_subject_cluster": [
+     24.966195205479455,
+     47.39639130434782
+    ],
+    "n_windows": 317,
+    "n_subjects": 3
+   },
+   "gate_soft": {
+    "mae": 36.654795899053624,
+    "ci95_subject_cluster": [
+     25.290076712328766,
+     47.408494202898545
+    ],
+    "n_windows": 317,
+    "n_subjects": 3,
+    "vs_kisr": {
+     "delta_mae": 0.15166971608832824,
+     "ci95_subject_cluster": [
+      -0.0004166666666591823,
+      0.32388150684931105
+     ],
+     "p_subject_wilcoxon": 0.5,
+     "n_subjects": 3
+    }
+   },
+   "gate_bp": {
+    "mae": 36.20713911671924,
+    "ci95_subject_cluster": [
+     24.958757534246576,
+     47.159094202898544
+    ],
+    "n_windows": 317,
+    "n_subjects": 3,
+    "vs_kisr": {
+     "delta_mae": -0.2959870662460631,
+     "ci95_subject_cluster": [
+      -0.7487107843137295,
+      -0.007437671232878529
+     ],
+     "p_subject_wilcoxon": 0.25,
+     "n_subjects": 3
+    }
+   }
+  },
+  "run": {
+   "kisr": {
+    "mae": 48.13395776566758,
+    "ci95_subject_cluster": [
+     32.22981212938005,
+     67.43698870056497
+    ],
+    "n_windows": 367,
+    "n_subjects": 5
+   },
+   "gate_soft": {
+    "mae": 48.153266757493185,
+    "ci95_subject_cluster": [
+     32.23477277628032,
+     67.43585
+    ],
+    "n_windows": 367,
+    "n_subjects": 5,
+    "vs_kisr": {
+     "delta_mae": 0.019308991825610633,
+     "ci95_subject_cluster": [
+      -0.006251388888898646,
+      0.05856567567567339
+     ],
+     "p_subject_wilcoxon": 0.8125,
+     "n_subjects": 5
+    }
+   },
+   "gate_bp": {
+    "mae": 47.76827901907358,
+    "ci95_subject_cluster": [
+     31.675173315363878,
+     66.77123324099723
+    ],
+    "n_windows": 367,
+    "n_subjects": 5,
+    "vs_kisr": {
+     "delta_mae": -0.3656787465939928,
+     "ci95_subject_cluster": [
+      -0.7228741758241668,
+      -0.028772131147540847
+     ],
+     "p_subject_wilcoxon": 0.1875,
+     "n_subjects": 5
+    }
+   }
+  }
+ },
+ "per_subject_mae": {
+  "kisr": {
+   "s1": 24.966195205479455,
+   "s2": 45.64779901960783,
+   "s3": 38.49255694444444,
+   "s4": 42.66447638888889,
+   "s5": 57.149826315789475,
+   "s6": 27.94170810810811,
+   "s8": 84.42385428571428
+  },
+  "gate_soft": {
+   "s1": 25.29007671232877,
+   "s2": 45.64738235294117,
+   "s3": 38.50440486111111,
+   "s4": 42.66707499999999,
+   "s5": 57.24518289473685,
+   "s6": 27.928739189189184,
+   "s8": 84.42015285714287
+  },
+  "gate_bp": {
+   "s1": 24.958757534246576,
+   "s2": 44.8990882352941,
+   "s3": 37.937045833333336,
+   "s4": 42.66045555555556,
+   "s5": 57.215077631578964,
+   "s6": 27.744124324324332,
+   "s8": 83.55767714285716
+  }
+ },
+ "elapsed_s": 62.5
+}

@@ -1,0 +1,80 @@
+{
+ "model": "analytical, datasheet typicals, linear ODR scaling; estimate only, no prototype and no measured power",
+ "constants_mA": {
+  "acc_per_100Hz": 0.45,
+  "gyro_per_100Hz": 0.55,
+  "mag": 0.5,
+  "afe_quiescent": 0.3,
+  "afe_256Hz_16bit": 0.9,
+  "mcu": 1.0,
+  "ble_per_ms": 5.0
+ },
+ "rows": [
+  {
+   "config": "full suite, 256 Hz, 16-bit",
+   "fs_hz": 256,
+   "bits": 16,
+   "i_imu_ma": 4.212,
+   "i_afe_ma": 1.2,
+   "i_ble_ma": 0.64,
+   "i_mcu_ma": 1.0,
+   "i_total_ma": 7.052,
+   "saving_vs_full_pct": 0.0
+  },
+  {
+   "config": "acc+gyro, 256 Hz, 16-bit",
+   "fs_hz": 256,
+   "bits": 16,
+   "i_imu_ma": 2.56,
+   "i_afe_ma": 1.2,
+   "i_ble_ma": 0.384,
+   "i_mcu_ma": 1.0,
+   "i_total_ma": 5.144,
+   "saving_vs_full_pct": 27.1
+  },
+  {
+   "config": "acc only, 256 Hz, 16-bit",
+   "fs_hz": 256,
+   "bits": 16,
+   "i_imu_ma": 1.152,
+   "i_afe_ma": 1.2,
+   "i_ble_ma": 0.256,
+   "i_mcu_ma": 1.0,
+   "i_total_ma": 3.608,
+   "saving_vs_full_pct": 48.8
+  },
+  {
+   "config": "full suite, 16 Hz, 8-bit",
+   "fs_hz": 16,
+   "bits": 8,
+   "i_imu_ma": 0.732,
+   "i_afe_ma": 0.342,
+   "i_ble_ma": 0.02,
+   "i_mcu_ma": 1.0,
+   "i_total_ma": 2.094,
+   "saving_vs_full_pct": 70.3
+  },
+  {
+   "config": "acc+gyro, 16 Hz, 8-bit",
+   "fs_hz": 16,
+   "bits": 8,
+   "i_imu_ma": 0.16,
+   "i_afe_ma": 0.342,
+   "i_ble_ma": 0.012,
+   "i_mcu_ma": 1.0,
+   "i_total_ma": 1.514,
+   "saving_vs_full_pct": 78.5
+  },
+  {
+   "config": "acc only, 16 Hz, 8-bit",
+   "fs_hz": 16,
+   "bits": 8,
+   "i_imu_ma": 0.072,
+   "i_afe_ma": 0.342,
+   "i_ble_ma": 0.008,
+   "i_mcu_ma": 1.0,
+   "i_total_ma": 1.422,
+   "saving_vs_full_pct": 79.8
+  }
+ ]
+}

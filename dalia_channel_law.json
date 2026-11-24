@@ -1,0 +1,678 @@
+{
+ "protocol": {
+  "win_s": 8.0,
+  "step_s": 8.0,
+  "ref": "ECG R-peaks (ppglib.ecg_rpeaks, neurokit2) at native 700 Hz + median RR (ppglib.ref_hr); distributed 'rpeaks'/'label' fields NOT used (Wrist protocol identity)",
+  "ref_exclusion_bpm": [
+   40.0,
+   180.0
+  ],
+  "estimator": "ppglib.hr_harmonic comb (0.6-3.4 Hz, 3 harmonics, low-band gate 1.1 Hz, cont_w=0.35), prev=None",
+  "effective_fs_hz": 64.0,
+  "native_fs_hz": {
+   "ppg": 64,
+   "acc_wrist": 32,
+   "acc_chest": 700,
+   "ecg": 700,
+   "resp": 700,
+   "eda": 4,
+   "temp": 4,
+   "activity": 4
+  },
+  "kisr_stft": "nperseg=64, hop=16 at 64 Hz (1-s frame, 75% overlap) - same time-frequency geometry as the Wrist native run (256/64 at 256 Hz) and the 64-Hz sizing config of run_wrist_expanded.py",
+  "imu_resampling": "scipy.signal.resample_poly (zero-phase polyphase FIR, Kaiser beta=5) onto the 64-Hz PPG grid: wrist acc up=2/down=1 (32->64 Hz), chest acc up=16/down=175 (700->64 Hz); common t=0 start (synchronised distributed pickles), length ratios verified per subject",
+  "activities": "dataset 4-Hz labels: walking=7, cycling=4, stairs=2 (running is NOT in the DaLiA protocol; stairs substituted as third vigorous activity); modal label per window with >=75% purity (transition windows excluded); sitting/soccer/driving/lunch/working/transient excluded",
+  "channel_sets": "ch_acc = wrist ACC; ch_acc_chest = chest ACC; ch_acc_both = wrist+chest ACC union (reference). The public PPG-DaLiA release has NO gyroscope and NO magnetometer (readme III.1/III.2), so the requested gyro/mag ablations cannot be run without fabricating data; the inertial union law is tested with the two available accelerometers.",
+  "continuity_prior": "prev=None for every channel set (as in run_wrist_expanded channel ablations)",
+  "bootstrap": "subject-clustered, 4000 resamples, percentile 95% CI (common.cluster_bootstrap_ci / delta_summary)",
+  "tost_margin_bpm": 2.0,
+  "tost_alpha": 0.05
+ },
+ "acquisition": {
+  "url": "https://uni-siegen.sciebo.de/public.php/dav/files/pfHzlTepXkiJ4jP",
+  "share_url": "https://uni-siegen.sciebo.de/s/pfHzlTepXkiJ4jP",
+  "official_page": "https://ubi29.informatik.uni-siegen.de/usi/data_ppgdalia.html",
+  "original_page": "https://ubicomp.eti.uni-siegen.de/home/datasets/ic18w2/",
+  "original_page_status": "HTTP 404 (retired); official page relocated",
+  "uci_mirror_fallback": "https://archive.ics.uci.edu/static/public/495/ppg+dalia.zip",
+  "filename": "PPG_FieldStudy.zip",
+  "sha256": "fcda4d13f6475e88a24f1ef9658627dc98e04dd5c5dd790cd2b0a1a22e31913b",
+  "bytes": 2864337783,
+  "signal_rates_hz": {
+   "ppg": 64,
+   "acc_wrist": 32,
+   "acc_chest": 700,
+   "ecg": 700,
+   "resp": 700,
+   "eda": 4,
+   "temp": 4,
+   "activity": 4
+  },
+  "pickle_keys": {
+   "top": [
+    "activity",
+    "label",
+    "questionnaire",
+    "rpeaks",
+    "signal",
+    "subject"
+   ],
+   "signal.chest": [
+    "ACC",
+    "ECG",
+    "Resp",
+    "EDA (dummy)",
+    "EMG (dummy)",
+    "Temp (dummy)"
+   ],
+   "signal.wrist": [
+    "ACC",
+    "BVP (=PPG)",
+    "EDA",
+    "TEMP"
+   ]
+  },
+  "gyro_mag_available": false,
+  "gyro_mag_note": "public PPG-DaLiA release contains no gyroscope or magnetometer (readme III.1/III.2; raw RespiBAN h5 channels CH1-CH8 = ECG/Resp/ACC/EDA/EMG/Temp); inertial union = wrist ACC + chest ACC",
+  "resampling_method": "scipy.signal.resample_poly onto the 64-Hz PPG grid (wrist acc 2/1, chest acc 16/175), zero-phase polyphase FIR; effective fs = 64 Hz",
+  "activity_label_map": {
+   "0": "transient",
+   "1": "sitting",
+   "2": "stairs",
+   "3": "table soccer",
+   "4": "cycling",
+   "5": "driving",
+   "6": "lunch break",
+   "7": "walking",
+   "8": "working"
+  },
+  "running_note": "running is not part of the DaLiA protocol; stairs (ID 2) used as the third vigorous activity"
+ },
+ "cohort": {
+  "n_subjects": 15,
+  "n_records": 15,
+  "n_windows": 2825,
+  "subjects": [
+   "S1",
+   "S2",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7",
+   "S8",
+   "S9",
+   "S10",
+   "S11",
+   "S12",
+   "S13",
+   "S14",
+   "S15"
+  ],
+  "records": [
+   "S1",
+   "S2",
+   "S3",
+   "S4",
+   "S5",
+   "S6",
+   "S7",
+   "S8",
+   "S9",
+   "S10",
+   "S11",
+   "S12",
+   "S13",
+   "S14",
+   "S15"
+  ],
+  "windows_per_activity": {
+   "walk": 1168,
+   "bike": 860,
+   "stairs": 797
+  },
+  "exclusions": {
+   "other_activity_windows": 13328,
+   "impure_transition_windows": 17,
+   "ref_invalid_windows": 0,
+   "ref_outside_40_180_windows": 11
+  },
+  "per_subject": {
+   "S1": {
+    "n_candidate": 180,
+    "n_other_activity": 971,
+    "n_impure": 0,
+    "n_ref_invalid": 0,
+    "n_ref_outside": 0,
+    "n_used": 180,
+    "used_by_act": {
+     "stairs": 35,
+     "bike": 51,
+     "walk": 94
+    },
+    "duration_s": 9212.0,
+    "length_ratios": {
+     "acc_wrist": 1.0,
+     "acc_chest": 1.0,
+     "ecg": 1.0,
+     "activity": 1.0
+    },
+    "n_rpeaks": 11454,
+    "elapsed_s": 11.6
+   },
+   "S2": {
+    "n_candidate": 169,
+    "n_other_activity": 856,
+    "n_impure": 3,
+    "n_ref_invalid": 0,
+    "n_ref_outside": 0,
+    "n_used": 166,
+    "used_by_act": {
+     "stairs": 32,
+     "bike": 48,
+     "walk": 86
+    },
+    "duration_s": 8205.0,
+    "length_ratios": {
+     "acc_wrist": 1.0,
+     "acc_chest": 1.0,
+     "ecg": 1.0,
+     "activity": 1.0
+    },
+    "n_rpeaks": 11231,
+    "elapsed_s": 8.9
+   },
+   "S3": {
+    "n_candidate": 195,
+    "n_other_activity": 897,
+    "n_impure": 3,
+    "n_ref_invalid": 0,
+    "n_ref_outside": 0,
+    "n_used": 192,
+    "used_by_act": {
+     "stairs": 54,
+     "bike": 47,
+     "walk": 91
+    },
+    "duration_s": 8741.0,
+    "length_ratios": {
+     "acc_wrist": 1.0,
+     "acc_chest": 1.0,
+     "ecg": 1.0,
+     "activity": 1.0
+    },
+    "n_rpeaks": 12919,
+    "elapsed_s": 10.2
+   },
+   "S4": {
+    "n_candidate": 198,
+    "n_other_activity": 945,
+    "n_impure": 0,
+    "n_ref_invalid": 0,
+    "n_ref_outside": 0,
+    "n_used": 198,
+    "used_by_act": {
+     "stairs": 65,
+     "bike": 59,
+     "walk": 74
+    },
+    "duration_s": 9150.0,
+    "length_ratios": {
+     "acc_wrist": 1.0,
+     "acc_chest": 1.0,
+     "ecg": 1.0,
+     "activity": 1.0
+    },
+    "n_rpeaks": 13294,
+    "elapsed_s": 10.4
+   },
+   "S5": {
+    "n_candidate": 185,
+    "n_other_activity": 978,
+    "n_impure": 0,
+    "n_ref_invalid": 0,
+    "n_ref_outside": 10,
+    "n_used": 175,
+    "used_by_act": {
+     "stairs": 51,
+     "bike": 50,
+     "walk": 74
+    },
+    "duration_s": 9305.0,
+    "length_ratios": {
+     "acc_wrist": 1.0,
+     "acc_chest": 1.0,
+     "ecg": 1.0,
+     "activity": 1.0
+    },
+    "n_rpeaks": 19425,
+    "elapsed_s": 9.9
+   },
+   "S6": {
+    "n_candidate": 120,
+    "n_other_activity": 536,
+    "n_impure": 1,
+    "n_ref_invalid": 0,
+    "n_ref_outside": 1,
+    "n_used": 118,
+    "used_by_act": {
+     "stairs": 53,
+     "bike": 65,
+     "walk": 0
+    },
+    "duration_s": 5250.0,
+    "length_ratios": {
+     "acc_wrist": 1.0,
+     "acc_chest": 1.0,
+     "ecg": 1.0,
+     "activity": 1.0
+    },
+    "n_rpeaks": 10148,
+    "elapsed_s": 6.0
+   },
+   "S7": {
+    "n_candidate": 202,
+    "n_other_activity": 965,
+    "n_impure": 1,
+    "n_ref_invalid": 0,
+    "n_ref_outside": 0,
+    "n_used": 201,
+    "used_by_act": {
+     "stairs": 50,
+     "bike": 63,
+     "walk": 88
+    },
+    "duration_s": 9343.0,
+    "length_ratios": {
+     "acc_wrist": 1.0,
+     "acc_chest": 1.0,
+     "ecg": 1.0,
+     "activity": 1.0
+    },
+    "n_rpeaks": 13270,
+    "elapsed_s": 10.4
+   },
+   "S8": {
+    "n_candidate": 164,
+    "n_other_activity": 846,
+    "n_impure": 1,
+    "n_ref_invalid": 0,
+    "n_ref_outside": 0,
+    "n_used": 163,
+    "used_by_act": {
+     "stairs": 51,
+     "bike": 52,
+     "walk": 60
+    },
+    "duration_s": 8080.0,
+    "length_ratios": {
+     "acc_wrist": 1.0,
+     "acc_chest": 1.0,
+     "ecg": 1.0,
+     "activity": 1.0
+    },
+    "n_rpeaks": 9903,
+    "elapsed_s": 8.4
+   },
+   "S9": {
+    "n_candidate": 203,
+    "n_other_activity": 867,
+    "n_impure": 1,
+    "n_ref_invalid": 0,
+    "n_ref_outside": 0,
+    "n_used": 202,
+    "used_by_act": {
+     "stairs": 60,
+     "bike": 69,
+     "walk": 73
+    },
+    "duration_s": 8560.0,
+    "length_ratios": {
+     "acc_wrist": 1.0,
+     "acc_chest": 1.0,
+     "ecg": 1.0,
+     "activity": 1.0
+    },
+    "n_rpeaks": 12407,
+    "elapsed_s": 9.8
+   },
+   "S10": {
+    "n_candidate": 255,
+    "n_other_activity": 1076,
+    "n_impure": 1,
+    "n_ref_invalid": 0,
+    "n_ref_outside": 0,
+    "n_used": 254,
+    "used_by_act": {
+     "stairs": 58,
+     "bike": 61,
+     "walk": 135
+    },
+    "duration_s": 10648.0,
+    "length_ratios": {
+     "acc_wrist": 1.0,
+     "acc_chest": 1.0,
+     "ecg": 1.0,
+     "activity": 1.0
+    },
+    "n_rpeaks": 15327,
+    "elapsed_s": 12.1
+   },
+   "S11": {
+    "n_candidate": 201,
+    "n_other_activity": 930,
+    "n_impure": 3,
+    "n_ref_invalid": 0,
+    "n_ref_outside": 0,
+    "n_used": 198,
+    "used_by_act": {
+     "stairs": 57,
+     "bike": 60,
+     "walk": 81
+    },
+    "duration_s": 9048.0,
+    "length_ratios": {
+     "acc_wrist": 1.0,
+     "acc_chest": 1.0,
+     "ecg": 1.0,
+     "activity": 1.0
+    },
+    "n_rpeaks": 15294,
+    "elapsed_s": 10.1
+   },
+   "S12": {
+    "n_candidate": 187,
+    "n_other_activity": 802,
+    "n_impure": 3,
+    "n_ref_invalid": 0,
+    "n_ref_outside": 0,
+    "n_used": 184,
+    "used_by_act": {
+     "stairs": 60,
+     "bike": 59,
+     "walk": 65
+    },
+    "duration_s": 7914.0,
+    "length_ratios": {
+     "acc_wrist": 1.0,
+     "acc_chest": 1.0,
+     "ecg": 1.0,
+     "activity": 1.0
+    },
+    "n_rpeaks": 9488,
+    "elapsed_s": 9.0
+   },
+   "S13": {
+    "n_candidate": 212,
+    "n_other_activity": 930,
+    "n_impure": 0,
+    "n_ref_invalid": 0,
+    "n_ref_outside": 0,
+    "n_used": 212,
+    "used_by_act": {
+     "stairs": 62,
+     "bike": 62,
+     "walk": 88
+    },
+    "duration_s": 9136.0,
+    "length_ratios": {
+     "acc_wrist": 1.0,
+     "acc_chest": 1.0,
+     "ecg": 1.0,
+     "activity": 1.0
+    },
+    "n_rpeaks": 13547,
+    "elapsed_s": 10.5
+   },
+   "S14": {
+    "n_candidate": 197,
+    "n_other_activity": 922,
+    "n_impure": 0,
+    "n_ref_invalid": 0,
+    "n_ref_outside": 0,
+    "n_used": 197,
+    "used_by_act": {
+     "stairs": 57,
+     "bike": 63,
+     "walk": 77
+    },
+    "duration_s": 8958.0,
+    "length_ratios": {
+     "acc_wrist": 1.0,
+     "acc_chest": 1.0,
+     "ecg": 1.0,
+     "activity": 1.0
+    },
+    "n_rpeaks": 13141,
+    "elapsed_s": 10.0
+   },
+   "S15": {
+    "n_candidate": 185,
+    "n_other_activity": 807,
+    "n_impure": 0,
+    "n_ref_invalid": 0,
+    "n_ref_outside": 0,
+    "n_used": 185,
+    "used_by_act": {
+     "stairs": 52,
+     "bike": 51,
+     "walk": 82
+    },
+    "duration_s": 7939.0,
+    "length_ratios": {
+     "acc_wrist": 1.0,
+     "acc_chest": 1.0,
+     "ecg": 1.0,
+     "activity": 1.0
+    },
+    "n_rpeaks": 10518,
+    "elapsed_s": 9.1
+   }
+  },
+  "note": "all 15 distributed subjects used; one record (pickle) per subject; no subject dropped. S6.pkl is truncated to the first ~1.5 h by the dataset itself (hardware issue, readme III.3) and contributes only the exercise windows inside that span."
+ },
+ "channel_ablation": {
+  "ch_acc": {
+   "mae": 27.3872504778761,
+   "ci95_subject_cluster": [
+    22.93002384919976,
+    32.64426190315495
+   ],
+   "n_windows": 2825,
+   "n_subjects": 15,
+   "vs_full": {
+    "delta_mae": -0.0016810619468934362,
+    "ci95_subject_cluster": [
+     -0.1317826534323073,
+     0.13997655090558309
+    ],
+    "p_subject_wilcoxon": 0.846923828125,
+    "n_subjects": 15
+   },
+   "tost": {
+    "margin_bpm": 2.0,
+    "mean_diff_bpm": -0.0026085573545920225,
+    "sd_diff_bpm": 0.2672923785720445,
+    "n_subjects": 15,
+    "se_bpm": 0.06901459538517977,
+    "ci90": [
+     -0.12416466372291218,
+     0.11894754901372814
+    ],
+    "t_lower": 28.941580132400933,
+    "t_upper": -29.017174500230908,
+    "p_lower": 3.4232375233753375e-14,
+    "p_upper": 3.302330352187053e-14,
+    "equivalent": true
+   }
+  },
+  "ch_acc_chest": {
+   "mae": 28.193364495575224,
+   "ci95_subject_cluster": [
+    23.643646907276757,
+    33.701031667330156
+   ],
+   "n_windows": 2825,
+   "n_subjects": 15,
+   "vs_full": {
+    "delta_mae": 0.8044329557522119,
+    "ci95_subject_cluster": [
+     0.3060630396363453,
+     1.3765860213921404
+    ],
+    "p_subject_wilcoxon": 0.01806640625,
+    "n_subjects": 15
+   },
+   "tost": {
+    "margin_bpm": 2.0,
+    "mean_diff_bpm": 0.8668261522175807,
+    "sd_diff_bpm": 1.1845960944377072,
+    "n_subjects": 15,
+    "se_bpm": 0.3058613963826392,
+    "ci90": [
+     0.32810937462657674,
+     1.4055429298085849
+    ],
+    "t_lower": 9.372958425361793,
+    "t_upper": -3.704860636825166,
+    "p_lower": 1.0353077775964116e-07,
+    "p_upper": 0.0011772767357505422,
+    "equivalent": true
+   }
+  },
+  "ch_acc_both": {
+   "mae": 27.38893153982301,
+   "ci95_subject_cluster": [
+    22.94540766232313,
+    32.63502799406318
+   ],
+   "n_windows": 2825,
+   "n_subjects": 15,
+   "tost": {
+    "margin_bpm": 2.0,
+    "mean_diff_bpm": 0.0,
+    "sd_diff_bpm": 0.0,
+    "n_subjects": 15,
+    "ci90": [
+     0.0,
+     0.0
+    ],
+    "p_lower": 0.0,
+    "p_upper": 0.0,
+    "equivalent": true,
+    "note": "zero variance (identical per-subject differences)"
+   }
+  }
+ },
+ "per_subject_mae": {
+  "ch_acc": {
+   "S1": 21.561257222222224,
+   "S2": 24.50767048192771,
+   "S3": 27.384936979166667,
+   "S4": 26.467751010101004,
+   "S5": 53.458665714285715,
+   "S6": 27.232025423728814,
+   "S7": 19.039248756218907,
+   "S8": 22.31125644171779,
+   "S9": 37.087607425742576,
+   "S10": 25.133365748031498,
+   "S11": 44.799437373737376,
+   "S12": 15.882658695652173,
+   "S13": 21.456157075471697,
+   "S14": 22.895542131979692,
+   "S15": 22.494565405405407
+  },
+  "ch_acc_chest": {
+   "S1": 23.58843777777778,
+   "S2": 24.46336325301205,
+   "S3": 26.80433802083333,
+   "S4": 26.160624747474746,
+   "S5": 56.65315771428571,
+   "S6": 29.656467796610166,
+   "S7": 18.562670646766172,
+   "S8": 23.100211042944785,
+   "S9": 37.792541584158414,
+   "S10": 25.966778740157487,
+   "S11": 45.05509898989899,
+   "S12": 16.497148369565217,
+   "S13": 22.269672169811322,
+   "S14": 23.490799999999997,
+   "S15": 24.692355675675678
+  },
+  "ch_acc_both": {
+   "S1": 21.439484999999998,
+   "S2": 24.88580481927711,
+   "S3": 26.90577135416667,
+   "S4": 26.892762626262627,
+   "S5": 53.34854457142856,
+   "S6": 27.226210169491523,
+   "S7": 19.125456218905473,
+   "S8": 22.370495705521474,
+   "S9": 37.31321188118812,
+   "S10": 25.31782086614173,
+   "S11": 44.80663535353536,
+   "S12": 15.955753804347827,
+   "S13": 20.992218396226406,
+   "S14": 22.58647969543147,
+   "S15": 22.584623783783783
+  }
+ },
+ "per_activity_mae": {
+  "ch_acc": {
+   "walk": {
+    "mae": 24.96603955479452,
+    "n_windows": 1168
+   },
+   "bike": {
+    "mae": 25.16850244186047,
+    "n_windows": 860
+   },
+   "stairs": {
+    "mae": 33.32965658720201,
+    "n_windows": 797
+   }
+  },
+  "ch_acc_chest": {
+   "walk": {
+    "mae": 25.94702131849315,
+    "n_windows": 1168
+   },
+   "bike": {
+    "mae": 25.81604372093023,
+    "n_windows": 860
+   },
+   "stairs": {
+    "mae": 34.05061003764116,
+    "n_windows": 797
+   }
+  },
+  "ch_acc_both": {
+   "walk": {
+    "mae": 25.019389383561645,
+    "n_windows": 1168
+   },
+   "bike": {
+    "mae": 25.0115938372093,
+    "n_windows": 860
+   },
+   "stairs": {
+    "mae": 33.426742910915934,
+    "n_windows": 797
+   }
+  }
+ },
+ "acc_vs_full_subjects": {
+  "acc_better": 9,
+  "acc_worse": 6,
+  "ties": 0,
+  "n_subjects_paired": 15
+ },
+ "notes": [
+  "vs full inertial union wrist+chest ACC (subject-level Wilcoxon, pooled-window delta): ch_acc: Wilcoxon p=0.847, delta=-0.002 bpm; ch_acc_chest: Wilcoxon p=0.018, delta=+0.804 bpm",
+  "TOST equivalence at +/-2.0 bpm (alpha=0.05, per-subject paired differences): equivalent sets = ['ch_acc', 'ch_acc_chest', 'ch_acc_both']",
+  "single wrist acc better than full union in 9/15 subjects (worse in 6, ties 0)",
+  "DEVIATIONS from the requested spec, forced by the actual public release: (i) no gyro/mag exist in PPG-DaLiA, so the channel law is tested on wrist ACC vs chest ACC vs their union instead of acc/gyro/mag sets; (ii) no running in the protocol, stairs used as third exercise activity; (iii) non-overlapping 8-s windows and 64-Hz effective fs with resampled IMU as specified.",
+  "Replication of run_wrist_expanded.py on PPG-DaLiA with the same kisr.kisr cleaner and ppglib.hr_harmonic estimator (prev=None) and the same subject-level statistics."
+ ],
+ "elapsed_s": 146.6
+}
